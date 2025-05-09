@@ -17,17 +17,84 @@ import {
 
 // Array com as 11 fotos da pasta public
 const placeholderImages = [
-  { id: 1, url: "/1.png", alt: "Imagem da empresa 1" },
-  { id: 2, url: "/2.png", alt: "Imagem da empresa 2" },
-  { id: 3, url: "/3.png", alt: "Imagem da empresa 3" },
-  { id: 4, url: "/4.png", alt: "Imagem da empresa 4" },
-  { id: 5, url: "/5.png", alt: "Imagem da empresa 5" },
-  { id: 6, url: "/6.png", alt: "Imagem da empresa 6" },
-  { id: 7, url: "/7.png", alt: "Imagem da empresa 7" },
-  { id: 8, url: "/8.png", alt: "Imagem da empresa 8" },
-  { id: 9, url: "/9.png", alt: "Imagem da empresa 9" },
-  { id: 10, url: "/10.png", alt: "Imagem da empresa 10" },
-  { id: 11, url: "/11.png", alt: "Imagem da empresa 11" },
+  {
+    id: 1,
+    url: "/1.png",
+    alt: "Imagem da empresa 1",
+    title: "Nossa História",
+    description:
+      "Fundada em 2005, a Siga Imóveis nasceu com o propósito de transformar a experiência de compra e venda de imóveis.",
+  },
+  {
+    id: 2,
+    url: "/2.png",
+    alt: "Imagem da empresa 2",
+    title: "Nossa Primeira Sede",
+    description: "Nossa primeira sede, onde começamos a construir nossa história no mercado imobiliário.",
+  },
+  {
+    id: 3,
+    url: "/3.png",
+    alt: "Imagem da empresa 3",
+    title: "Expansão",
+    description: "Ao longo dos anos, expandimos nossa atuação para diversas regiões de São Paulo.",
+  },
+  {
+    id: 4,
+    url: "/4.png",
+    alt: "Imagem da empresa 4",
+    title: "Nossa Equipe",
+    description: "Nossa equipe de profissionais altamente qualificados trabalha para oferecer o melhor atendimento.",
+  },
+  {
+    id: 5,
+    url: "/5.png",
+    alt: "Imagem da empresa 5",
+    title: "Inovação",
+    description: "Investimos constantemente em tecnologia e inovação para melhorar a experiência do cliente.",
+  },
+  {
+    id: 6,
+    url: "/6.png",
+    alt: "Imagem da empresa 6",
+    title: "Ambiente de Trabalho",
+    description: "Nossos escritórios modernos proporcionam um ambiente acolhedor para nossos clientes.",
+  },
+  {
+    id: 7,
+    url: "/7.png",
+    alt: "Imagem da empresa 7",
+    title: "Eventos",
+    description: "Realizamos eventos e workshops para compartilhar conhecimento sobre o mercado imobiliário.",
+  },
+  {
+    id: 8,
+    url: "/8.png",
+    alt: "Imagem da empresa 8",
+    title: "Parcerias",
+    description: "Parcerias estratégicas nos permitem oferecer as melhores oportunidades de negócio.",
+  },
+  {
+    id: 9,
+    url: "/9.png",
+    alt: "Imagem da empresa 9",
+    title: "Qualidade",
+    description: "Nosso compromisso com a qualidade é reconhecido por clientes e parceiros.",
+  },
+  {
+    id: 10,
+    url: "/10.png",
+    alt: "Imagem da empresa 10",
+    title: "Celebrações",
+    description: "Celebramos cada conquista e cada sonho realizado junto com nossos clientes.",
+  },
+  {
+    id: 11,
+    url: "/11.png",
+    alt: "Imagem da empresa 11",
+    title: "Referência",
+    description: "Hoje, somos referência no mercado imobiliário, com milhares de clientes satisfeitos.",
+  },
 ]
 
 export default function Empresa() {
@@ -36,6 +103,7 @@ export default function Empresa() {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
+  const [showOverlay, setShowOverlay] = useState(true)
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -102,6 +170,11 @@ export default function Empresa() {
   const handleMouseEnter = () => setIsAutoPlaying(false)
   const handleMouseLeave = () => setIsAutoPlaying(true)
 
+  console.log(
+    "Imagens do carrossel:",
+    placeholderImages.map((img) => img.url),
+  )
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Cabeçalho da página */}
@@ -116,90 +189,83 @@ export default function Empresa() {
 
       {/* Carrossel de imagens */}
       <div
-        className="relative overflow-hidden bg-gray-900"
+        className="relative overflow-hidden bg-gray-900 w-full aspect-[16/9] max-h-[1080px]"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="h-[500px] md:h-[600px] relative">
-        {placeholderImages.map((image, index) => {
-  console.log(`Imagem ${index + 1}:`, image.url); // Adicione este log
-  return (
-    <div
-      key={image.id}
-      className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-        index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-      }`}
-    >
-            <div className="relative h-[500px] w-full">
-              <Image
-                src={image.url || "/placeholder.svg"}
-                alt={image.alt}
-                fill
-                priority={index === 0}
-                className="object-cover"
-              />
-              </div>
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+        {placeholderImages.map((image, index) => (
+          <div
+            key={image.id}
+            className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+              index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+            }`}
+          >
+            <Image
+              src={image.url || "/placeholder.svg"}
+              alt={image.alt}
+              fill
+              priority={index === 0}
+              className="object-contain md:object-cover"
+              sizes="(max-width: 768px) 100vw, 1920px"
+            />
+            {showOverlay && (
+              <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
                 <div className="text-center text-white px-4 max-w-4xl mx-auto">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4 transform transition-transform duration-700 ease-out translate-y-0 opacity-100">
-                    {`Nossa Trajetória - Parte ${index + 1}`}
-                  </h2>
-                  <p className="text-lg md:text-xl mb-6 transform transition-transform duration-700 ease-out translate-y-0 opacity-100">
-                    {index === 0 &&
-                      "Fundada em 2005, a Siga Imóveis nasceu com o propósito de transformar a experiência de compra e venda de imóveis."}
-                    {index === 1 &&
-                      "Nossa primeira sede, onde começamos a construir nossa história no mercado imobiliário."}
-                    {index === 2 && "Ao longo dos anos, expandimos nossa atuação para diversas regiões de São Paulo."}
-                    {index === 3 &&
-                      "Nossa equipe de profissionais altamente qualificados trabalha para oferecer o melhor atendimento."}
-                    {index === 4 &&
-                      "Investimos constantemente em tecnologia e inovação para melhorar a experiência do cliente."}
-                    {index === 5 &&
-                      "Nossos escritórios modernos proporcionam um ambiente acolhedor para nossos clientes."}
-                    {index === 6 &&
-                      "Realizamos eventos e workshops para compartilhar conhecimento sobre o mercado imobiliário."}
-                    {index === 7 &&
-                      "Parcerias estratégicas nos permitem oferecer as melhores oportunidades de negócio."}
-                    {index === 8 && "Nosso compromisso com a qualidade é reconhecido por clientes e parceiros."}
-                    {index === 9 && "Celebramos cada conquista e cada sonho realizado junto com nossos clientes."}
-                    {index === 10 &&
-                      "Hoje, somos referência no mercado imobiliário, com milhares de clientes satisfeitos."}
-                  </p>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4 drop-shadow-lg">{image.title}</h2>
+                  <p className="text-lg md:text-xl mb-6 drop-shadow-lg">{image.description}</p>
                 </div>
               </div>
-      C
+            )}
+          </div>
+        ))}
 
-        {/* Controles do carrossel */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white bg-opacity-80 p-2 rounded-full text-gray-800 hover:bg-emerald-600 hover:text-white transition-colors"
-          aria-label="Slide anterior"
-        >
-          <ChevronLeftIcon className="h-6 w-6" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white bg-opacity-80 p-2 rounded-full text-gray-800 hover:bg-emerald-600 hover:text-white transition-colors"
-          aria-label="Próximo slide"
-        >
-          <ChevronRightIcon className="h-6 w-6" />
-        </button>
+        {/* Controles customizados do carrossel */}
+        <div className="absolute inset-y-0 left-0 flex items-center px-4 z-20">
+          <button
+            onClick={prevSlide}
+            className="bg-emerald-800 text-white p-2 rounded-full shadow-md hover:bg-emerald-700 transition"
+            aria-label="Slide anterior"
+          >
+            <ChevronLeftIcon className="h-5 w-5" />
+          </button>
+        </div>
+        <div className="absolute inset-y-0 right-0 flex items-center px-4 z-20">
+          <button
+            onClick={nextSlide}
+            className="bg-emerald-800 text-white p-2 rounded-full shadow-md hover:bg-emerald-700 transition"
+            aria-label="Próximo slide"
+          >
+            <ChevronRightIcon className="h-5 w-5" />
+          </button>
+        </div>
 
-        {/* Indicadores */}
+        {/* Indicadores atualizados */}
         <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center space-x-2">
           {placeholderImages.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide ? "bg-white w-8" : "bg-white bg-opacity-50 hover:bg-opacity-75"
+              className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
+                index === currentSlide
+                  ? "bg-white border-white w-5"
+                  : "bg-white bg-opacity-50 border-gray-400 hover:bg-opacity-75"
               }`}
               aria-label={`Ir para slide ${index + 1}`}
             />
           ))}
+        </div>
+
+        {/* Botão para alternar a sobreposição */}
+        <div className="absolute top-4 right-4 z-20">
+          <button
+            onClick={() => setShowOverlay(!showOverlay)}
+            className="bg-white bg-opacity-70 text-gray-800 px-3 py-1 rounded-md text-sm font-medium hover:bg-opacity-100 transition-colors"
+          >
+            {showOverlay ? "Ocultar Texto" : "Mostrar Texto"}
+          </button>
         </div>
       </div>
 

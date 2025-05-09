@@ -80,14 +80,14 @@ export default function Home() {
               <Link href="/empresa" className="text-gray-800 hover:text-emerald-800 font-medium">
                 A Empresa
               </Link>
-              <Link href="/imoveis" className="text-gray-800 hover:text-emerald-800 font-medium">
+              <Link href="cliente/imoveis" className="text-gray-800 hover:text-emerald-800 font-medium">
                 Buscar Imóvel
               </Link>
               <Link href="/cadastre" className="text-gray-800 hover:text-emerald-800 font-medium">
                 Cadastre seu Imóvel
               </Link>
-              <Link href="/trabalhe" className="text-gray-800 hover:text-emerald-800 font-medium">
-                Trabalhe Conosco
+              <Link href="/servicos" className="text-gray-800 hover:text-emerald-800 font-medium">
+                Serviços
               </Link>
               <Link href="/contato" className="text-gray-800 hover:text-emerald-800 font-medium">
                 Contato
