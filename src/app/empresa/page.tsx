@@ -124,13 +124,15 @@ export default function Empresa() {
         onTouchEnd={handleTouchEnd}
       >
         <div className="h-[500px] md:h-[600px] relative">
-          {placeholderImages.map((image, index) => (
-            <div
-              key={image.id}
-              className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-                index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-              }`}
-            >
+        {placeholderImages.map((image, index) => {
+  console.log(`Imagem ${index + 1}:`, image.url); // Adicione este log
+  return (
+    <div
+      key={image.id}
+      className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+        index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+      }`}
+    >
             <div className="relative h-[500px] w-full">
               <Image
                 src={image.url || "/placeholder.svg"}
@@ -168,9 +170,7 @@ export default function Empresa() {
                   </p>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+      C
 
         {/* Controles do carrossel */}
         <button
